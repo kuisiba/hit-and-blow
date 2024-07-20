@@ -8,25 +8,54 @@ import {
 } from "./Styled";
 import { generateAnswer } from "./generateAnswer";
 import { useEffect, useState } from "react";
+import type { Guesses } from "./types";
+import { GuessesComponent } from "./GuessesComponent";
+
+const calcResult = (
+	answer: string[],
+	idx: number,
+	value: string,
+): "HIT" | "BLOW" | "MISS" => {
+	if (answer[idx] === value) {
+		return "HIT";
+	}
+	if (answer.includes(value)) {
+		return "BLOW";
+	}
+	return "MISS";
+};
 
 const App = () => {
 	const [form] = Form.useForm();
 	const [answer, setAnswer] = useState<string[]>([]);
+	const [history, setHistory] = useState<Guesses[]>([]);
 
 	useEffect(() => {
 		setAnswer(generateAnswer());
 	}, []);
 
+	const onFinish = async (value: { inputNumber: string }) => {
 		await form.validateFields();
-		console.log("onFinish");
+
+		const guesses = Array.from(value.inputNumber).map((item, index) => {
+			return {
+				index,
+				value: item,
+				result: calcResult(answer, index, item),
+			};
+		});
+		setHistory([...history, { index: history.length, guesses }]);
 	};
 
 	return (
 		<>
 			<StyledCard>
-				<Form onFinish={onFinish}>
+				<Form onFinish={onFinish} form={form}>
+					{history.map((guesses) => (
+						<GuessesComponent key={guesses.index} guesses={guesses.guesses} />
+					))}
 					<StyledFormItem
-						name="4digit number"
+						name="inputNumber"
 						rules={[
 							{ required: true, message: "input: [0000-9999]" },
 							{
@@ -34,7 +63,7 @@ const App = () => {
 								message: "input: [0000-9999]",
 							},
 						]}
-						validateTrigger="submit"
+						validateTrigger="onSubmit"
 					>
 						<StyledInput placeholder="4桁の数字を入力" />
 					</StyledFormItem>
