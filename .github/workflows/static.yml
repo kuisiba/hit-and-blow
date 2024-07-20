@@ -40,6 +40,8 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install
+      - name: TEST
+        run: ls -al
       - name: Build
         run: yarn build
       - name: Setup Pages
