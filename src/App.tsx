@@ -2,9 +2,9 @@ import { Form } from "antd";
 import { useEffect, useState } from "react";
 import { GuessesComponent } from "./components/GuessesComponent";
 import {
+	Description,
 	StyledButton,
 	StyledCard,
-	Description,
 	StyledFormItem,
 	StyledInput,
 } from "./components/Styled";
