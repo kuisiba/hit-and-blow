@@ -1,4 +1,6 @@
 import { Form } from "antd";
+import { useEffect, useState } from "react";
+import { GuessesComponent } from "./GuessesComponent";
 import {
 	StyledButton,
 	StyledCard,
@@ -7,9 +9,7 @@ import {
 	StyledInput,
 } from "./Styled";
 import { generateAnswer } from "./generateAnswer";
-import { useEffect, useState } from "react";
 import type { Guesses } from "./types";
-import { GuessesComponent } from "./GuessesComponent";
 
 const calcResult = (
 	answer: string[],
