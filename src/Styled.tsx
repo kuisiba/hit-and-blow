@@ -6,7 +6,7 @@ export const StyledFormItem = styled(Form.Item)`
 `;
 
 export const StyledCard = styled(Card)`
-  width: 300px;
+  width: 480px;
   margin: 0 auto;
   margin-top: 100px;
   background-color: #2E3553;
