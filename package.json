@@ -1,0 +1,31 @@
+{
+	"name": "hit_and_blow",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"format": "biome format ./src",
+		"lint": "biome lint ./src",
+		"check": "biome check ./src",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@types/react": "^18.3.3",
+		"@types/react-dom": "^18.3.0",
+		"@vitejs/plugin-react-swc": "^3.5.0",
+		"typescript": "^5.2.2",
+		"vite": "^5.3.4",
+		"vite-tsconfig-paths": "^4.3.2"
+	},
+	"volta": {
+		"node": "20.15.1",
+		"yarn": "4.3.1"
+	}
+}
