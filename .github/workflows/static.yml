@@ -31,12 +31,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Corepack enable
+        run: corepack enable
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'yarn'
-      -  run: corepack enable
       - name: Install dependencies
         run: yarn install --immutable --immutable-cache --check-cache
       - name: Build
