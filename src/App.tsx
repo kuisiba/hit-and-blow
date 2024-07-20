@@ -6,10 +6,17 @@ import {
 	StyledFormItem,
 	StyledInput,
 } from "./Styled";
+import { generateAnswer } from "./generateAnswer";
+import { useEffect, useState } from "react";
 
 const App = () => {
 	const [form] = Form.useForm();
-	const onFinish = async () => {
+	const [answer, setAnswer] = useState<string[]>([]);
+
+	useEffect(() => {
+		setAnswer(generateAnswer());
+	}, []);
+
 		await form.validateFields();
 		console.log("onFinish");
 	};
