@@ -29,6 +29,7 @@ const App = () => {
 	const [form] = Form.useForm();
 	const [answer, setAnswer] = useState<string[]>([]);
 	const [history, setHistory] = useState<Guesses[]>([]);
+	const [finish, setFinish] = useState<boolean>(false);
 
 	useEffect(() => {
 		setAnswer(generateAnswer());
@@ -37,6 +38,14 @@ const App = () => {
 	const onFinish = async (value: { inputNumber: string }) => {
 		await form.validateFields();
 
+		if (finish) {
+			setAnswer(generateAnswer());
+			setHistory([]);
+			setFinish(false);
+			form.resetFields();
+			return;
+		}
+
 		const guesses = Array.from(value.inputNumber).map((item, index) => {
 			return {
 				index,
@@ -44,7 +53,18 @@ const App = () => {
 				result: calcResult(answer, index, item),
 			};
 		});
-		setHistory([...history, { index: history.length, guesses }]);
+		const newHistory = history.concat({ index: history.length, guesses });
+		setHistory(newHistory);
+
+		// クリア
+		if (guesses.every((guess) => guess.result === "HIT")) {
+			setFinish(true);
+		}
+
+		// ゲームオーバー
+		if (newHistory.length >= 5) {
+			setFinish(true);
+		}
 	};
 
 	return (
@@ -68,8 +88,8 @@ const App = () => {
 						<StyledInput placeholder="4桁の数字を入力" />
 					</StyledFormItem>
 					<StyledFormItem>
-						<StyledButton type="primary" htmlType="submit">
-							決定
+						<StyledButton htmlType="submit">
+							{finish ? "もう一回" : "決定"}
 						</StyledButton>
 					</StyledFormItem>
 				</Form>
