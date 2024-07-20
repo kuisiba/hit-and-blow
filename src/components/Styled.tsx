@@ -25,7 +25,7 @@ export const StyledButton = styled(Button)`
   width: 100%;
 `;
 
-export const StyledDiv = styled.div`
+export const Description = styled.div`
   background-color: ${({ color }) => color};
   color: white;
   margin-top: 8px;
