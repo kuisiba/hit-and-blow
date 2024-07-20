@@ -1,13 +1,13 @@
 import { Form } from "antd";
 import { useEffect, useState } from "react";
-import { GuessesComponent } from "./GuessesComponent";
+import { GuessesComponent } from "./components/GuessesComponent";
 import {
 	StyledButton,
 	StyledCard,
 	StyledDiv,
 	StyledFormItem,
 	StyledInput,
-} from "./Styled";
+} from "./components/Styled";
 import { generateAnswer } from "./generateAnswer";
 import type { Guesses } from "./types";
 

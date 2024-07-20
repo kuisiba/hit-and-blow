@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import type { Guess } from "./types";
+import type { Guess } from "../types";
 
 const StyledDiv = styled.div`
 display: flex;
