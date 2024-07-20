@@ -8,11 +8,27 @@ import {
 } from "./Styled";
 
 const App = () => {
+	const [form] = Form.useForm();
+	const onFinish = async () => {
+		await form.validateFields();
+		console.log("onFinish");
+	};
+
 	return (
 		<>
 			<StyledCard>
-				<Form>
-					<StyledFormItem>
+				<Form onFinish={onFinish}>
+					<StyledFormItem
+						name="4digit number"
+						rules={[
+							{ required: true, message: "input: [0000-9999]" },
+							{
+								pattern: /^[0-9]{4}$/,
+								message: "input: [0000-9999]",
+							},
+						]}
+						validateTrigger="submit"
+					>
 						<StyledInput placeholder="4桁の数字を入力" />
 					</StyledFormItem>
 					<StyledFormItem>
