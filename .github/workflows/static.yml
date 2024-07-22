@@ -39,12 +39,10 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: yarn install
-      - name: TEST
+      - name: Build
         run: |
               ls -al
-              yarn -v
-      - name: Build
-        run: yarn build
+              yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
