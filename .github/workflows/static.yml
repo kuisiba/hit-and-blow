@@ -40,7 +40,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: TEST
-        run: ls -al
+        run: |
+              ls -al
+              yarn -v
       - name: Build
         run: yarn build
       - name: Setup Pages
