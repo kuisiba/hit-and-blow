@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: 22
       - name: Install dependencies
-        run: yarn install
+        run: corepack yarn install
       - name: Build
         run: |
               ls -al
