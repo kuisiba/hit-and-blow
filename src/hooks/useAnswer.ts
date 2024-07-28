@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useState } from "react";
+
 export const generateAnswer = (): string[] => {
 	const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 	const answer = [];
@@ -9,4 +11,18 @@ export const generateAnswer = (): string[] => {
 	}
 
 	return answer;
+};
+
+export const useAnswer = () => {
+	const [answer, setAnswer] = useState<string[]>([]);
+
+	const resetAnswer = useCallback(() => {
+		setAnswer(generateAnswer());
+	}, []);
+
+	useEffect(() => {
+		resetAnswer();
+	}, [resetAnswer]);
+
+	return [answer, resetAnswer] as const;
 };
