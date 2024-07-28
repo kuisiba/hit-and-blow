@@ -73,10 +73,17 @@ const App = () => {
 					<StyledFormItem
 						name="inputNumber"
 						rules={[
-							{ required: true, message: "input: [0000-9999]" },
 							{
-								pattern: /^[0-9]{4}$/,
-								message: "input: [0000-9999]",
+								validator: async (_, value) => {
+									if (gameOver) return Promise.resolve();
+									if (!value) {
+										throw new Error("This field is required.");
+									}
+									if (!/^[0-9]{4}$/.test(value)) {
+										throw new Error("input: [0000-9999]");
+									}
+									return Promise.resolve();
+								},
 							},
 						]}
 						validateTrigger="onSubmit"
