@@ -20,7 +20,7 @@ const App = () => {
 	const [gameOver, setGameOver] = useState<boolean>(false);
 	const [answer, resetAnswer] = useAnswer();
 
-	const onFinish = async (value: { inputNumber: string }) => {
+	const onFinish = (value: { inputNumber: string }) => {
 		if (gameOver) {
 			resetAnswer();
 			setHistory([]);
@@ -28,8 +28,6 @@ const App = () => {
 			form.resetFields();
 			return;
 		}
-
-		await form.validateFields();
 
 		const guesses = generateGuess(value.inputNumber, answer);
 		const newHistory = history.concat({ index: history.length, guesses });
