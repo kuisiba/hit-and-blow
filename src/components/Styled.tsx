@@ -29,4 +29,5 @@ export const Description = styled.div`
   background-color: ${({ color }) => color};
   color: white;
   margin-top: 8px;
+  padding-left: 8px;
 `;
