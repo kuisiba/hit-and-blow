@@ -29,19 +29,19 @@ const calcResult = (
 const App = () => {
 	const [form] = Form.useForm();
 	const [history, setHistory] = useState<Guesses[]>([]);
-	const [finish, setFinish] = useState<boolean>(false);
+	const [gameOver, setGameOver] = useState<boolean>(false);
 	const [answer, resetAnswer] = useAnswer();
 
 	const onFinish = async (value: { inputNumber: string }) => {
-		await form.validateFields();
-
-		if (finish) {
+		if (gameOver) {
 			resetAnswer();
 			setHistory([]);
-			setFinish(false);
+			setGameOver(false);
 			form.resetFields();
 			return;
 		}
+
+		await form.validateFields();
 
 		const guesses = Array.from(value.inputNumber).map((item, index) => {
 			return {
@@ -50,17 +50,15 @@ const App = () => {
 				result: calcResult(answer, index, item),
 			};
 		});
+
 		const newHistory = history.concat({ index: history.length, guesses });
 		setHistory(newHistory);
 
-		// クリア
-		if (guesses.every((guess) => guess.result === "HIT")) {
-			setFinish(true);
-		}
-
-		// ゲームオーバー
-		if (newHistory.length >= 5) {
-			setFinish(true);
+		if (
+			guesses.every((guess) => guess.result === "HIT") ||
+			newHistory.length >= 5
+		) {
+			setGameOver(true);
 		}
 	};
 
@@ -86,7 +84,7 @@ const App = () => {
 					</StyledFormItem>
 					<StyledFormItem>
 						<StyledButton htmlType="submit">
-							{finish ? "もう一回" : "決定"}
+							{gameOver ? "もう一回" : "決定"}
 						</StyledButton>
 					</StyledFormItem>
 				</Form>
