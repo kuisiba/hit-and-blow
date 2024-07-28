@@ -1,5 +1,6 @@
 import { Form } from "antd";
 import { useState } from "react";
+import { BLOW_COLOR, HIT_COLOR, MISS_COLOR } from "./color";
 import { GuessesComponent } from "./components/GuessesComponent";
 import { RuleComponent } from "./components/Rule";
 import {
@@ -88,9 +89,9 @@ const App = () => {
 						</StyledButton>
 					</StyledFormItem>
 				</Form>
-				<Description color="#377e22">位置と数字があっている</Description>
-				<Description color="#958129">位置が間違っている</Description>
-				<Description color="#5c0e09">位置と数字が間違っている</Description>
+				<Description color={HIT_COLOR}>位置と数字があっている</Description>
+				<Description color={BLOW_COLOR}>位置が間違っている</Description>
+				<Description color={MISS_COLOR}>位置と数字が間違っている</Description>
 			</StyledCard>
 			<RuleComponent />
 		</>
