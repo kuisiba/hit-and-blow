@@ -1,10 +1,10 @@
-export interface Guess {
+export interface GuessInterface {
 	index: number;
 	value: string;
 	result: "HIT" | "BLOW" | "MISS";
 }
 
-export interface Guesses {
+export interface GuessesInterface {
 	index: number;
-	guesses: Guess[];
+	guesses: GuessInterface[];
 }

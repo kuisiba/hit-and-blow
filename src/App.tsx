@@ -10,26 +10,13 @@ import {
 	StyledFormItem,
 	StyledInput,
 } from "./components/Styled";
+import { generateGuess, isGameOver } from "./guess";
 import { useAnswer } from "./hooks/useAnswer";
-import type { Guesses } from "./types";
-
-const calcResult = (
-	answer: string[],
-	idx: number,
-	value: string,
-): "HIT" | "BLOW" | "MISS" => {
-	if (answer[idx] === value) {
-		return "HIT";
-	}
-	if (answer.includes(value)) {
-		return "BLOW";
-	}
-	return "MISS";
-};
+import type { GuessesInterface } from "./types";
 
 const App = () => {
 	const [form] = Form.useForm();
-	const [history, setHistory] = useState<Guesses[]>([]);
+	const [history, setHistory] = useState<GuessesInterface[]>([]);
 	const [gameOver, setGameOver] = useState<boolean>(false);
 	const [answer, resetAnswer] = useAnswer();
 
@@ -44,21 +31,11 @@ const App = () => {
 
 		await form.validateFields();
 
-		const guesses = Array.from(value.inputNumber).map((item, index) => {
-			return {
-				index,
-				value: item,
-				result: calcResult(answer, index, item),
-			};
-		});
-
+		const guesses = generateGuess(value.inputNumber, answer);
 		const newHistory = history.concat({ index: history.length, guesses });
 		setHistory(newHistory);
 
-		if (
-			guesses.every((guess) => guess.result === "HIT") ||
-			newHistory.length >= 5
-		) {
+		if (isGameOver(guesses, newHistory)) {
 			setGameOver(true);
 		}
 	};
